@@ -1,6 +1,5 @@
 #! /bin/bash
 gcloud config set project $1
-destination=$2
 
 gcloud compute instances list --filter="name~'test*'" --format="table(name,zone.basename())" > details.txt
 
@@ -14,7 +13,7 @@ do
 done
 for (( i=0; i<${#arr[@]}; i+=2 ));
 do
-    ( ./move.sh ${arr[i]} ${arr[i + 1]} $destination & );
+    ( ./move.sh ${arr[i]} ${arr[i + 1]} $1 $2 & );
 done
 
 rm details.txt
